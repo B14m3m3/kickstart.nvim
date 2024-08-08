@@ -6,7 +6,7 @@ return {
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
+        markdown = { 'markdownlint' }, -- TODO weird this doesn't show in Mason
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -40,6 +40,10 @@ return {
       -- lint.linters_by_ft['ruby'] = nil
       -- lint.linters_by_ft['terraform'] = nil
       -- lint.linters_by_ft['text'] = nil
+
+      vim.keymap.set('n', '<leader>ll', function()
+        lint.try_lint()
+      end, { desc = 'Trigger linting for current file' })
 
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
